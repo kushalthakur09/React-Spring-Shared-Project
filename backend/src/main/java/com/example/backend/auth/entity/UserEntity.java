@@ -10,11 +10,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserEntity {
 
 	@Id
@@ -30,5 +36,11 @@ public class UserEntity {
 	@NotNull
 	private String password;
 
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate;
 
+    @UpdateTimestamp
+    @Column(name = "updated_date",nullable = false)
+    private LocalDateTime updatedDate;
 }

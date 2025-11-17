@@ -77,13 +77,12 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Lombok (optional) -->
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-					<dependency>
-						<groupId>org.projectlombok</groupId>
-						<artifactId>lombok</artifactId>
-						<version>1.18.42</version>
-					</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+        </dependency>
 
         <!-- Testing -->
         <dependency>
@@ -92,11 +91,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
         <dependency>

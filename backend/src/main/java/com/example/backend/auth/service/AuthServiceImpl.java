@@ -9,6 +9,8 @@ import com.example.backend.auth.entity.UserEntity;
 import com.example.backend.auth.mapper.UserMapper;
 import com.example.backend.auth.repository.UserRepository;
 
+import java.time.LocalDateTime;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -20,8 +22,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
 	public SignUpResponseDTO signUpUser(SignUpReqDto signUpReqDto) {
+        UserEntity userEntity= UserEntity.builder()
+                .email(signUpReqDto.getEmail())
+                .username(signUpReqDto.getUsername())
+                .password(signUpReqDto.getPassword())
+                .createdDate(LocalDateTime.now())
+                .build();
 
-        UserEntity userEntity = userMapper.toEntity(signUpReqDto, UserEntity.class);
         userEntity = userRepository.save(userEntity);
         return userMapper.toDto(userEntity, SignUpResponseDTO.class);
     
