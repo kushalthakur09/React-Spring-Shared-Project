@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpResponseDTO {
-	@JsonProperty
 	private Long id;
-	@JsonProperty
     private String username;
-	@JsonProperty
     private String email;
+    private String role;
 }
