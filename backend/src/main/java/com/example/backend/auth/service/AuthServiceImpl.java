@@ -46,9 +46,4 @@ public class AuthServiceImpl implements AuthService {
         return userMapper.toDto(userEntity, SignUpResponseDTO.class);
     
 	}
-    public LoginResponseDto loginUser(LoginReqDto loginReqDto) {
-    	UserEntity user = userRepository.findByEmail(loginReqDto.getEmail());
-    	LoginResponseDto loginResponseDto = userMapper.toDto(user, LoginResponseDto.class);
-    	return loginResponseDto;
-    }
 }
