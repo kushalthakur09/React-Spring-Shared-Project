@@ -3,6 +3,7 @@ package com.example.backend.auth.service;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.auth.dto.LoginReqDto;
@@ -26,6 +27,9 @@ public class AuthServiceImpl implements AuthService {
     
     @Autowired
     private RoleRepository roleRepository;
+    
+    
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
     @Override
 	public SignUpResponseDTO signUpUser(SignUpReqDto signUpReqDto) {
     	RoleEntity role = roleRepository.findByName(signUpReqDto.getRole());
@@ -33,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
         UserEntity userEntity= UserEntity.builder()
                 .email(signUpReqDto.getEmail())
                 .username(signUpReqDto.getUsername())
-                .password(signUpReqDto.getPassword())
+                .password(encoder.encode(signUpReqDto.getPassword()))
                 .roleEntity(role)
                 .createdDate(LocalDateTime.now())
                 .build();

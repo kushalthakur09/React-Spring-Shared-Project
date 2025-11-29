@@ -1,3 +1,3 @@
-INSERT INTO roles (name) VALUES ('GUEST');
-INSERT INTO roles (name) VALUES ('HOST');
-INSERT INTO roles (name) VALUES ('ADMIN');
+INSERT IGNORE INTO roles (name) VALUES ('GUEST');
+INSERT IGNORE INTO roles (name) VALUES ('HOST');
+INSERT IGNORE INTO roles (name) VALUES ('ADMIN');
