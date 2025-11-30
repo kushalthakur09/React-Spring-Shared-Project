@@ -14,12 +14,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private JwtFilter jwtFilter;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,12 +38,13 @@ public class SecurityConfig {
 						.requestMatchers("/api/auth/loginUser").permitAll()
 						// All other APIs need authentication
 						.anyRequest().authenticated())
-				// To Enable Spring Login
-				.formLogin(Customizer.withDefaults()) // optional; Spring will generate default page if not
-															// provided
+//				// To Enable Spring Login
+//				.formLogin(Customizer.withDefaults()) // optional; Spring will generate default page if not
+//															// provided
 				// 3) Do not use HTTP Session (because we’ll use tokens like JWT)
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+		//Register JWT Filter before UsernPasswordAuthenticationFilter
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		// Build the security filter chain object
 		return http.build();
 	}
@@ -52,8 +56,9 @@ public class SecurityConfig {
 		provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
 		return provider;
 	}
+
 	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
 }

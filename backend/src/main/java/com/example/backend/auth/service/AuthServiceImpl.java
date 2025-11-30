@@ -3,6 +3,7 @@ package com.example.backend.auth.service;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +46,10 @@ public class AuthServiceImpl implements AuthService {
         userEntity = userRepository.save(userEntity);
         return userMapper.toDto(userEntity, SignUpResponseDTO.class);
     
+	}
+	@Override
+	public UserEntity findByUsername(String username) {
+		return userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("USer Not Found: "+username));
+				
 	}
 }
